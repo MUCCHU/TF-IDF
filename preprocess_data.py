@@ -114,18 +114,18 @@ with open(os.path.join(DATA_FOLDER, "tfidf.json"), "w") as f:
     json.dump(tfidf, f)
 
 # store the generated idf matrix in a json file
-with open(os.path.join(DATA_FOLDER, "idf.json", "w")) as f:
+with open(os.path.join(DATA_FOLDER, "idf.json"), "w") as f:
     json.dump(idf, f)
 
 # store the generated reverse map in a json file
-with open(os.path.join(DATA_FOLDER, "reverse_map.json", "w")) as f:
+with open(os.path.join(DATA_FOLDER, "reverse_map.json"), "w") as f:
     json.dump(reverse_map, f)
 
 # store vocab in a json file
-with open(os.path.join(DATA_FOLDER, "vocab.json", "w")) as f:
+with open(os.path.join(DATA_FOLDER, "vocab.json"), "w") as f:
     json.dump(vocab, f)
 
 
 # store the index in a json file
-with open(os.path.join(DATA_FOLDER, "index.json", "w")) as f:
+with open(os.path.join(DATA_FOLDER, "index.json"), "w") as f:
     json.dump(corpus, f)

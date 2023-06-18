@@ -53,7 +53,7 @@ def get_results(query_string):
     links = get_links()
     query_string = query_string.lower()
     results = {}
-    stop_words = set(stopwords.words('english'))
+    # stop_words = set(stopwords.words('english'))
     query_words = query_string.split(" ")
     for word in query_words:
         if word not in vocab:

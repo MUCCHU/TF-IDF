@@ -7,6 +7,9 @@ from flask import Flask, render_template, request
 DATA_FOLDER = "tf-idf"
 app = Flask(__name__)
 
+stp_words = ['ourselves', 'aren', 'any', 'such', "you'd", 'yourself', 'll', 'you', "wasn't", 'here', 'so', 'haven', 'did', 'and', 'there', 'of', 'own', 'than', 'ain', 'both', 'above', 'between', "hadn't", "shouldn't", 'been', 'what', 'few', 'don', 'i', "she's", 'whom', 'these', 'for', 'after', 'but', 'with', 'until', 'myself', 'himself', 'won', "isn't", 'below', 'needn', 'those', 'am', 'now', 'were', "that'll", 'have', 'most', 'because', 'on', 'over', 'wouldn', 'my', 'other', 've', 'he', 'does', 'me', 'before', 'some', "aren't", 'it', 'if', 'against', 'can', "haven't", 'or', 'again', 'couldn', 'him', 'having', 'be', 'too', 'once', "it's", 'itself', 'up', 'down', 'hadn', "should've", 'an', 'they', 'them', 'from', 'will', 'weren', 'a', 'which', 'off', 'through', 'during', 'into', 'then', 'm', 'didn', "didn't", 'yourselves', 'why', 'out', 'just', 'each', 'hers', 'the', 'ma', 'o', 'about', 'very', 'her', 're', 'all', "you'll", 'nor', 'herself', 'at', "you've", 'his', 'not', 'their', 'themselves', 'being', 'who', 'how', 'd', 'theirs', 'mightn', 
+"wouldn't", 'we', 'y', 'only', 'isn', 'its', 'she', 'in', "weren't", 'by', 'further', 'no', 'our', 'when', 'has', 'where', 'doing', "mustn't", 'wasn', "don't", "needn't", 'yours', "won't", 'is', 'ours', 'are', 'should', "shan't", 'same', 'was', 'mustn', 's', 'shouldn', 'under', "couldn't", 't', 'while', "you're", 'do', 'shan', 'had', "mightn't", 
+'doesn', "hasn't", 'as', 'more', 'your', 'hasn', 'that', "doesn't", 'to', 'this']
 
 def get_tfidf():
     # read the tfidf.json file and return the tfidf matrix
@@ -55,7 +58,7 @@ def get_results(query_string):
     for word in query_words:
         if word not in vocab:
             continue
-        if word in stop_words:
+        if word in stp_words:
             continue
 
         docs = reverse_map[word]

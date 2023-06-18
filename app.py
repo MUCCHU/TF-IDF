@@ -31,13 +31,13 @@ def get_reverse_map():
 
 def get_index():
     # read the index.json file and return the index
-    with open("index.txt", "r") as f:
+    with open("index.txt", "r", encoding="Latin-1", errors="ignore") as f:
         return [line.split(" ", 1)[1].strip() for line in f]
 
 def get_links():
     #read the links.txt file in problems folder and return array of links
     links = []
-    with open("qindex.txt", "r") as f:
+    with open("qindex.txt", "r", encoding="Latin-1", errors="ignore") as f:
         for link in f:
             links.append(link.strip())
     return links

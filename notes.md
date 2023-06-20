@@ -1,1 +1,0 @@
-make sure to download nltk stop words while deploying

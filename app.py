@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from flask import Flask, render_template, request
 
 DATA_FOLDER = "tf-idf"
+PROBLEMS_FOLDER = "problems"
 app = Flask(__name__)
 
 stp_words = ['ourselves', 'aren', 'any', 'such', "you'd", 'yourself', 'll', 'you', "wasn't", 'here', 'so', 'haven', 'did', 'and', 'there', 'of', 'own', 'than', 'ain', 'both', 'above', 'between', "hadn't", "shouldn't", 'been', 'what', 'few', 'don', 'i', "she's", 'whom', 'these', 'for', 'after', 'but', 'with', 'until', 'myself', 'himself', 'won', "isn't", 'below', 'needn', 'those', 'am', 'now', 'were', "that'll", 'have', 'most', 'because', 'on', 'over', 'wouldn', 'my', 'other', 've', 'he', 'does', 'me', 'before', 'some', "aren't", 'it', 'if', 'against', 'can', "haven't", 'or', 'again', 'couldn', 'him', 'having', 'be', 'too', 'once', "it's", 'itself', 'up', 'down', 'hadn', "should've", 'an', 'they', 'them', 'from', 'will', 'weren', 'a', 'which', 'off', 'through', 'during', 'into', 'then', 'm', 'didn', "didn't", 'yourselves', 'why', 'out', 'just', 'each', 'hers', 'the', 'ma', 'o', 'about', 'very', 'her', 're', 'all', "you'll", 'nor', 'herself', 'at', "you've", 'his', 'not', 'their', 'themselves', 'being', 'who', 'how', 'd', 'theirs', 'mightn', 
@@ -45,6 +46,12 @@ def get_links():
             links.append(link.strip())
     return links
 
+def get_problem_statement(index):
+    #read the problem statement from problems folder
+    with open(os.path.join(os.path.join(PROBLEMS_FOLDER, str(index)), str(index) + ".txt"), "r", encoding="Latin-1", errors="ignore") as f:
+        return f.read()
+
+
 def get_results(query_string):
     tfidf =  get_tfidf()
     vocab = get_vocab()
@@ -74,9 +81,15 @@ def get_results(query_string):
     ans = []
     for key in results:
         res = {}
+        res['idx'] = key[0]
         res['title'] = documents[key[0]]
         res['link'] = links[key[0]]
         res['score'] = key[1]
+        try:
+            res['problem_statement'] = get_problem_statement(key[0]+1).strip()  
+        except:
+            res['problem_statement'] = "Problem statement not available"
+            # print("Problem statement not available")
         ans.append(res)
         # print(documents[key[0]], "score = ", str(key[1]))
     return ans
@@ -89,7 +102,7 @@ def home():
     if request.method == 'POST':
         query = request.form['query']
         results = get_results(query)
-        print(query)
+        # print(query)
         # print(results)
         return render_template('results.html', results=results, query=query)
     return render_template('search.html')

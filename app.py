@@ -107,9 +107,6 @@ def home():
         return render_template('results.html', results=results, query=query)
     return render_template('search.html')
 
-@app.route('/results', methods=['GET', 'POST'])
-def results():
-    return render_template('results.html')
 
 if __name__ == '__main__':
     nltk.download('stopwords')
